@@ -176,7 +176,8 @@ The project does not require external npm packages if `server.js` uses only Node
 Replace `YOUR-USERNAME` with the GitHub username that owns the repository.
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/EcoRoute-Web-GUI.git
+git clone https://github.com/Prince-Singh-Dev/Eco-Route.git
+
 ```
 
 ### 2. Open the Project Folder
