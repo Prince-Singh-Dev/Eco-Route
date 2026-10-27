@@ -1,123 +1,356 @@
-#  EcoRoute — Green Route Optimization System
+# EcoRoute — Green Route Optimization System
 
-A C-based route optimization project that uses graph algorithms to find routes between locations based on road distances. The project is being developed as part of the Design and Analysis of Algorithms (DAA) course.
+EcoRoute is a graph-based route optimization project that finds shortest paths between connected locations and estimates the CO₂ emissions associated with a journey. It combines a C-based graph algorithm engine with a browser-based web interface built using HTML, CSS, JavaScript, and Node.js.
 
-##  Project Overview
+The project uses a road network represented as a weighted graph. Users can select a starting point and destination, choose between Dijkstra's and Floyd–Warshall algorithms, visualize the calculated route on a schematic map, and compare estimated emissions for different modes of transport.
 
-EcoRoute represents a small campus or city road network as a weighted graph. Locations are represented as vertices, and roads are represented as weighted edges, where the weight indicates the distance in kilometres.
+## Table of Contents
 
-The project uses graph algorithms to explore locations and calculate shortest routes. Future improvements will extend the system with all-pairs shortest paths, algorithm analysis, and estimated carbon emissions.
+- [Project Overview](#project-overview)
+- [Features](#features)
+- [Technology Stack](#technology-stack)
+- [Phase-Wise Implementation](#phase-wise-implementation)
+- [Project Structure](#project-structure)
+- [Requirements](#requirements)
+- [Installation and Setup](#installation-and-setup)
+- [How to Use](#how-to-use)
+- [Algorithms Used](#algorithms-used)
+- [CO₂ Emission Estimation](#co-emission-estimation)
+- [API Endpoints](#api-endpoints)
+- [Testing](#testing)
+- [Limitations](#limitations)
+- [Future Enhancements](#future-enhancements)
+- [Author](#author)
 
-##  Objectives
+## Project Overview
 
-- Represent a road network using a weighted graph.
-- Implement Breadth-First Search (BFS) and Depth-First Search (DFS).
-- Find the shortest route between two locations using Dijkstra's algorithm.
-- Analyse the time and space complexity of the algorithms.
-- Extend the system with additional route analysis and environmental-impact estimation.
+Finding an efficient route between two locations can be represented as a shortest-path problem in graph theory.
 
-##  Technology Stack
+EcoRoute models locations as **vertices (nodes)** and roads between them as **weighted edges**. Each edge represents the distance between two connected locations.
 
-- **Language:** C
-- **IDE:** Visual Studio Code
-- **Compiler:** GCC
-- **Data Structure:** Adjacency Matrix
-- **Domain:** Graph Algorithms and Route Optimization
+The application uses this graph to calculate shortest routes and presents the results through a web interface.
 
-##  Development Progress
+The project also introduces a sustainability aspect by estimating direct operational CO₂ emissions for different transport modes based on the calculated route distance.
 
-### Phase 1 — Core Implementation
+## Features
 
-**Status: Implemented; individual features are being tested.**
+- **Location Network:** Represents connected locations using a weighted graph.
+- **Shortest-Path Algorithms:** Supports Dijkstra's and Floyd–Warshall algorithms.
+- **Algorithm Selection:** Allows users to choose the routing algorithm through the web interface.
+- **Interactive Route Planner:** Select a source and destination from dropdown menus.
+- **Schematic Network Map:** Displays locations, network connections, and the selected route.
+- **Route Information:** Shows the calculated distance and sequence of locations.
+- **CO₂ Estimation:** Compares estimated emissions for a petrol car, motorcycle, public bus, and walking/cycling.
+- **C Backend:** Performs graph processing and shortest-path calculations.
+- **Node.js Server:** Connects the browser interface with the C program.
+- **CSV-Based Network:** Stores road connections and distances in `data/roads.csv`.
+- **Zoom Controls:** Allows users to zoom in, zoom out, and reset the map view.
 
-- [x] Project setup in VS Code.
-- [x] Define seven predefined locations.
-- [x] Represent road connections using a weighted adjacency matrix.
-- [x] Display available locations.
-- [x] Display the distance matrix.
-- [x] Implement BFS traversal.
-- [x] Implement DFS traversal.
-- [x] Implement Dijkstra's shortest-route algorithm.
-- [x] Display the selected route and total distance.
-- [ ] Complete systematic testing of all menu options.
+## Technology Stack
 
-### Phase 2 — Algorithm Improvements
+| Technology | Purpose |
+|---|---|
+| C | Graph representation and shortest-path algorithms |
+| HTML5 | Webpage structure |
+| CSS3 | Styling and responsive layout |
+| JavaScript | User interaction, map rendering, and API requests |
+| Node.js | Local HTTP server and C backend integration |
+| CSV | Storage of road network data |
+| GCC | Compiling the C backend |
 
-**Status: Planned.**
+## Phase-Wise Implementation
 
-- [ ] Implement Floyd–Warshall for all-pairs shortest paths.
-- [ ] Improve input validation and error handling.
-- [ ] Add test cases for different source and destination pairs.
-- [ ] Document algorithm time and space complexity.
-- [ ] Compare shortest-path results from Dijkstra and Floyd–Warshall.
+### Phase 1 — Graph Representation and Traversal
 
-### Phase 3 — Environmental Analysis and Finalization
+**Objective:** Build the basic road network and implement fundamental graph operations.
 
-**Status: Planned.**
+Implementation:
 
-- [ ] Estimate CO₂ emissions using configurable emission factors.
-- [ ] Compare route distances and estimated emissions.
-- [ ] Improve menu presentation and user guidance.
-- [ ] Add sample outputs and test-case documentation.
-- [ ] Prepare the final project report and viva notes.
+- Represent locations as vertices in a graph.
+- Represent roads as weighted edges.
+- Store the network in an adjacency matrix in the command-line implementation.
+- Load and display location and distance information.
+- Implement Breadth-First Search (BFS) for graph traversal.
+- Implement Depth-First Search (DFS) for graph traversal.
+- Create a menu-driven command-line interface.
 
-##  Algorithms and Complexity
+**Outcome:** A working C-based graph system that supports location display, distance information, and graph traversal.
 
-The current implementation uses an adjacency matrix with `V` vertices.
+### Phase 2 — Shortest-Path Algorithms and Route Optimization
 
-| Algorithm | Purpose                               | Time Complexity |
-|-----------|---------------------------------------|-----------------|
-| BFS       | Traverse reachable locations          | O(V²)           |
-| DFS       | Explore connected locations           | O(V²)           |
-| Dijkstra  | Find a shortest route from one source | O(V²)           |
+**Objective:** Calculate shortest routes between selected locations.
 
-The listed complexities apply to the current adjacency-matrix implementation. The graph representation requires O(V²) space. Floyd–Warshall, planned for Phase 2, has O(V³) time complexity and O(V²) space complexity.
+Implementation:
 
-## ▶ How to Run
+- Implement Dijkstra's algorithm for single-source shortest-path calculation.
+- Implement Floyd–Warshall for all-pairs shortest-path calculation.
+- Reconstruct the selected route using predecessor or next-hop information.
+- Calculate the total distance of the resulting route.
+- Read the road network from `data/roads.csv`.
+- Create `ecoroute_api.c` to provide structured JSON output for the web application.
 
-### Prerequisites
+**Outcome:** The C backend can calculate routes using either algorithm and return the route, distance, and estimated emissions data to the server.
 
-- GCC compiler installed.
-- Visual Studio Code installed.
+### Phase 3 — Web GUI and Backend Integration
 
-### Compile
+**Objective:** Build a browser-based interface for using the route optimization system.
 
-Open a terminal in the project directory and run:
+Implementation:
 
-```powershell
-gcc main.c -o ecoroute.exe
+- Create the webpage using HTML.
+- Style the interface with CSS.
+- Implement frontend interaction using JavaScript.
+- Build a Node.js HTTP server in `server.js`.
+- Compile and execute the C backend through the server.
+- Provide API endpoints for graph data and route calculations.
+- Connect the source and destination selectors to the backend.
+- Add algorithm selection for Dijkstra and Floyd–Warshall.
+- Display the calculated route on a custom SVG schematic map.
+- Add map zoom, reset, and location-swap controls.
+- Display route distance, route sequence, and estimated CO₂ emissions.
+
+**Outcome:** A functioning browser-based route planner that integrates the C algorithms with a web interface.
+
+### Phase 4 — Testing, Documentation, and Repository Preparation
+
+**Objective:** Prepare the project for demonstration, evaluation, and sharing.
+
+Implementation:
+
+- Test graph loading and API responses.
+- Verify that both shortest-path algorithms can be selected.
+- Test source and destination selection.
+- Check route distance and route visualization.
+- Verify that emission estimates are displayed.
+- Document the installation and execution process.
+- Prepare the repository with source files and required data.
+- Exclude generated executables and unnecessary local files from version control.
+
+**Outcome:** A documented project that can be shared through GitHub and run on a compatible development environment.
+
+## Project Structure
+
+```text
+EcoRoute-Web-GUI/
+│
+├── public/
+│   ├── index.html          # Webpage structure
+│   ├── style.css           # Styling and responsive layout
+│   └── app.js              # Frontend logic and SVG map
+│
+├── data/
+│   └── roads.csv           # Road network and distance data
+│
+├── ecoroute_api.c          # C backend adapter for the web GUI
+├── main.c                  # Command-line C implementation
+├── server.js               # Node.js HTTP server
+├── package.json            # Project scripts and dependencies
+├── README.md               # Project documentation
+└── .gitignore              # Files excluded from Git
 ```
 
-### Execute
+The generated executable, such as `ecoroute_api.exe` on Windows, does not need to be committed if the server compiles it automatically.
 
-```powershell
-.\ecoroute.exe
+## Requirements
+
+Install the following software before running the project:
+
+- **Node.js and npm:** For running the local web server.
+- **GCC:** For compiling the C backend.
+- **Git:** Optional, for cloning the repository.
+
+Verify the installations in your terminal:
+
+```bash
+node --version
+npm --version
+gcc --version
 ```
 
-##  Current Network
+The project does not require external npm packages if `server.js` uses only Node.js built-in modules.
 
-The program currently contains seven predefined locations:
+## Installation and Setup
 
-1. College
-2. Library
-3. Hostel
-4. Canteen
-5. Hospital
-6. Metro Station
-7. Sports Complex
+### 1. Clone the Repository
 
-Road distances are predefined for demonstration and testing. The project does not currently use live maps, GPS, real-time traffic, or external routing APIs.
+Replace `YOUR-USERNAME` with the GitHub username that owns the repository.
 
-##  Expected Outcome
+```bash
+git clone https://github.com/YOUR-USERNAME/EcoRoute-Web-GUI.git
+```
 
-The completed project aims to demonstrate how graph algorithms can support route optimization and how algorithm analysis can be applied to a practical problem.
+### 2. Open the Project Folder
 
-The proposed environmental feature will estimate emissions from route distance and a configurable emission factor. Such estimates will be illustrative rather than real-time measurements.
+```bash
+cd EcoRoute-Web-GUI
+```
 
-##  Academic Relevance
+Open this folder in VS Code if desired.
 
-This project primarily applies graph representation, graph traversal, shortest-path algorithms, and time and space complexity analysis from the Design and Analysis of Algorithms course.
+**Important:** Open the actual project root containing `package.json`, `server.js`, `ecoroute_api.c`, `data/`, and `public/`.
 
-##  Project Status
+### 3. Verify the Requirements
 
-**Currently developing — Phase 1 implemented; testing and future phases pending.**
+```bash
+node --version
+gcc --version
+```
+
+If either command is unavailable, install the missing software and ensure its executable is available through your system's PATH.
+
+### 4. Start the Application
+
+Run:
+
+```bash
+npm start
+```
+
+The server starts the application and, according to the server configuration, compiles the C backend when needed.
+
+### 5. Open the Web Application
+
+Open the following address in your browser:
+
+http://localhost:3000
+
+No separate frontend development server is required.
+
+> If the project adds npm dependencies in the future, run `npm install` before `npm start`. With the current dependency-free setup, `npm start` should be sufficient once Node.js, GCC, and the project files are available.
+
+## How to Use
+
+1. Start the application using `npm start`.
+2. Open `http://localhost:3000`.
+3. Select a starting point.
+4. Select a destination.
+5. Choose either **Dijkstra's Algorithm** or **Floyd–Warshall Algorithm**.
+6. Click **Find best route**.
+7. Review the calculated route and total distance.
+8. Inspect the route highlighted on the schematic map.
+9. Compare the estimated CO₂ emissions for different transport modes.
+10. Use the map controls to zoom in, zoom out, or reset the view.
+
+The application uses the distances stored in `data/roads.csv`; it does not retrieve live traffic or real-time road conditions.
+
+## Algorithms Used
+
+### Dijkstra's Algorithm
+
+Dijkstra's algorithm calculates shortest paths from a selected source to other reachable vertices in a weighted graph with non-negative edge weights.
+
+In EcoRoute, it is used to calculate the shortest route between the selected starting point and destination.
+
+### Floyd–Warshall Algorithm
+
+Floyd–Warshall calculates shortest paths between all pairs of vertices using dynamic programming.
+
+It repeatedly considers whether travelling through an intermediate vertex produces a shorter path. A next-hop matrix is used by the implementation to reconstruct the selected route.
+
+### Complexity Comparison
+
+Let `V` represent the number of vertices and `E` represent the number of edges.
+
+| Algorithm | Time Complexity | Purpose |
+|---|---|---|
+| Dijkstra with an adjacency matrix | O(V²) | Single-source shortest paths |
+| Floyd–Warshall | O(V³) | All-pairs shortest paths |
+| BFS | O(V + E) | Graph traversal |
+| DFS | O(V + E) | Graph traversal |
+
+The stated BFS and DFS complexities assume an adjacency-list representation. Implementations using an adjacency matrix may require O(V²) time.
+
+## CO₂ Emission Estimation
+
+EcoRoute estimates direct operational CO₂ emissions using the following formula:
+
+**Estimated emissions = Route distance × Emission factor**
+
+The application compares these transport modes:
+
+- Petrol car
+- Motorcycle
+- Public bus
+- Walking/cycling
+
+Emission factors are illustrative project values. They are intended to demonstrate how route distance can be used to estimate emissions, rather than to provide verified environmental measurements.
+
+Walking/cycling is assigned zero direct operational emissions in this model.
+
+## API Endpoints
+
+The Node.js server exposes endpoints used by the browser interface.
+
+### Get the Graph
+
+```http
+GET /api/graph
+```
+
+Returns the locations and road connections loaded from the CSV file.
+
+### Calculate a Route
+
+```http
+GET /api/route?source=0&destination=1&algorithm=dijkstra
+```
+
+Calculates a route using Dijkstra's algorithm.
+
+To use Floyd–Warshall:
+
+```http
+GET /api/route?source=0&destination=1&algorithm=floyd-warshall
+```
+
+The route response contains the selected source and destination, total distance, algorithm name, route as a sequence of location IDs, and emission estimates.
+
+The IDs in these examples are illustrative; use IDs that exist in the loaded graph.
+
+## Testing
+
+Before demonstrating the project, check the following:
+
+- [ ] `npm start` launches the server without errors.
+- [ ] The browser can load the location network.
+- [ ] The source and destination selectors contain the expected places.
+- [ ] Dijkstra calculates and displays a route.
+- [ ] Floyd–Warshall calculates and displays a route.
+- [ ] The total route distance is displayed.
+- [ ] The selected route is highlighted on the map.
+- [ ] The emissions cards display estimated values.
+- [ ] The zoom, reset, and swap controls work.
+- [ ] The application reports errors when a route cannot be calculated.
+
+You can also test the API endpoints directly in your browser.
+
+## Limitations
+
+- The map is schematic and is not geographically accurate or to scale.
+- The supplied road distances are illustrative demo data, not verified real-world distances.
+- The application does not use live traffic, road closures, or real-time navigation.
+- CO₂ estimates use fixed illustrative factors and do not account for traffic, occupancy, vehicle condition, or road-specific conditions.
+- Shortest distance does not necessarily mean shortest travel time or lowest actual emissions.
+- Running the project requires Node.js, GCC, and a compatible environment.
+- The server's compiler command and executable handling may need adjustment for operating systems other than the environment in which it was developed.
+
+## Future Enhancements
+
+Possible extensions include:
+
+- Integrating verified geographic road data.
+- Displaying real geographic maps.
+- Adding travel-time-based route optimization.
+- Introducing user-defined emission factors.
+- Comparing routes by distance, time, and estimated emissions.
+- Adding more graph algorithms and performance comparisons.
+- Improving automated tests and error handling.
+- Supporting additional operating systems with platform-aware compilation.
+
+## Author
+
+**Prince Kumar Singh**
+
+EcoRoute — Green Route Optimization System
+
+A student project combining Data Structures and Algorithms, C programming, web development, and sustainability concepts.
