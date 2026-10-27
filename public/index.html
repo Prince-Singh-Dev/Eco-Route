@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8f3">
+  <title>EcoRoute — Green Route Planner</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="EcoRoute home">
+      <span class="brand-symbol">e<span>↗</span></span>
+      <span class="brand-copy">
+        <strong>EcoRoute</strong>
+        <small>SMARTER WAYS TO MOVE</small>
+      </span>
+    </a>
+
+    <div class="header-center">
+      <span class="status-dot"></span>
+      <span>Route engine</span>
+      <strong>C + Shortest Path</strong>
+    </div>
+
+    <div class="header-tag">
+      <span class="header-tag-icon">✳</span>
+      Sustainable mobility
+    </div>
+  </header>
+
+  <main class="page">
+
+    <!-- Hero section -->
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">
+          <span></span> YOUR LOCAL ROUTE COMPANION
+        </div>
+
+        <h1>
+          Good routes.<br>
+          <span>Greener journeys.</span>
+        </h1>
+
+        <p>
+          Explore the EcoRoute network, find a shortest path between places,
+          and understand the estimated emissions of your journey.
+        </p>
+
+        <div class="hero-meta">
+          <span><i class="meta-icon">⌖</i> MRIIRS &amp; Faridabad network</span>
+          <span><i class="meta-icon">↗</i> Graph-based routing</span>
+        </div>
+      </div>
+
+      <div class="hero-art" aria-hidden="true">
+        <div class="orbit orbit-one"></div>
+        <div class="orbit orbit-two"></div>
+        <div class="art-leaf">✳</div>
+
+        <div class="art-route">
+          <span class="art-pin pin-one"></span>
+          <span class="art-pin pin-two"></span>
+          <span class="art-pin pin-three"></span>
+        </div>
+
+        <div class="art-label">FIND YOUR WAY</div>
+      </div>
+    </section>
+
+    <!-- Main workspace -->
+    <section class="workspace">
+
+      <!-- Route planner -->
+      <aside class="planner panel">
+        <div class="panel-heading">
+          <div>
+            <div class="section-kicker">YOUR NEXT TRIP</div>
+            <h2>Plan a journey</h2>
+          </div>
+          <span class="heading-icon">↗</span>
+        </div>
+
+        <!-- Starting point -->
+        <div class="field-label">
+          <span class="field-index">A</span>
+          <label for="source">Starting point</label>
+        </div>
+
+        <div class="select-shell">
+          <span class="select-marker start-marker"></span>
+
+          <select id="source">
+            <option>Loading places...</option>
+          </select>
+
+          <span class="select-chevron">⌄</span>
+        </div>
+
+        <!-- Swap locations -->
+        <div class="connector-row">
+          <div class="connector-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <div class="connector-line"></div>
+
+          <button
+            id="swap"
+            class="swap-button"
+            type="button"
+            title="Swap starting point and destination"
+            aria-label="Swap locations"
+          >↕</button>
+        </div>
+
+        <!-- Destination -->
+        <div class="field-label">
+          <span class="field-index field-index-end">B</span>
+          <label for="destination">Destination</label>
+        </div>
+
+        <div class="select-shell">
+          <span class="select-marker end-marker"></span>
+
+          <select id="destination">
+            <option>Loading places...</option>
+          </select>
+
+          <span class="select-chevron">⌄</span>
+        </div>
+
+        <!-- Algorithm selector -->
+        <div class="field-label">
+          <span class="field-index">C</span>
+          <label for="algorithm">Routing algorithm</label>
+        </div>
+
+        <div class="select-shell">
+          <span class="select-marker start-marker"></span>
+
+          <select id="algorithm">
+            <option value="dijkstra">Dijkstra's Algorithm</option>
+            <option value="floyd-warshall">Floyd–Warshall Algorithm</option>
+          </select>
+
+          <span class="select-chevron">⌄</span>
+        </div>
+
+        <!-- Find route button -->
+        <button
+          id="findRoute"
+          class="primary-button"
+          type="button"
+        >
+          <span>Find best route</span>
+          <span class="button-arrow">↗</span>
+        </button>
+
+        <div id="error" class="error-message" role="alert"></div>
+
+        <div class="planner-foot">
+          <span class="shield-icon">✓</span>
+          <span>Calculated locally with your C shortest-path engine.</span>
+        </div>
+
+        <!-- Algorithm information -->
+        <div class="algorithm-card">
+          <div class="algorithm-symbol">D/F</div>
+
+          <div>
+            <strong>Dijkstra &amp; Floyd–Warshall</strong>
+            <span>Compare shortest-path algorithms</span>
+          </div>
+
+          <span class="algorithm-status">READY</span>
+        </div>
+      </aside>
+
+      <!-- Map -->
+      <section class="map-panel panel">
+        <div class="map-header">
+          <div>
+            <div class="section-kicker">EXPLORE THE NETWORK</div>
+            <h2>
+              Your route map
+              <span class="map-live-dot"></span>
+            </h2>
+            <p>A custom illustrated view of connected places.</p>
+          </div>
+
+          <div class="map-tools">
+            <button
+              id="zoomIn"
+              type="button"
+              aria-label="Zoom in"
+              title="Zoom in"
+            >+</button>
+
+            <button
+              id="zoomOut"
+              type="button"
+              aria-label="Zoom out"
+              title="Zoom out"
+            >−</button>
+
+            <button
+              id="resetMap"
+              type="button"
+              aria-label="Reset map view"
+              title="Reset view"
+            >⌂</button>
+          </div>
+        </div>
+
+        <div class="map-canvas" id="mapCanvas">
+          <svg
+            id="map"
+            viewBox="0 0 1000 620"
+            role="img"
+            aria-label="Custom schematic map of EcoRoute locations"
+          >
+            <text x="500" y="300" text-anchor="middle">
+              Loading network...
+            </text>
+          </svg>
+
+          <div class="map-overlay-label">
+            <span class="overlay-spark">✳</span>
+            ECOROUTE <span>NETWORK</span>
+          </div>
+
+          <div class="map-scale">
+            <span></span>
+            <span>SCHEMATIC VIEW</span>
+          </div>
+        </div>
+
+        <!-- Map legend -->
+        <div class="map-legend">
+          <div>
+            <span class="legend-dot legend-start"></span>
+            Start
+          </div>
+
+          <div>
+            <span class="legend-dot legend-end"></span>
+            Destination
+          </div>
+
+          <div>
+            <span class="legend-line"></span>
+            Network link
+          </div>
+
+          <div>
+            <span class="legend-line legend-selected"></span>
+            Selected route
+          </div>
+
+          <div id="networkCount" class="network-count">
+            Loading network...
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- Results and emissions -->
+    <section class="lower-grid">
+
+      <!-- Route summary -->
+      <section class="results panel" id="results">
+        <div class="panel-heading">
+          <div>
+            <div class="section-kicker">YOUR JOURNEY</div>
+            <h2>Route summary</h2>
+          </div>
+
+          <span class="summary-icon">⌁</span>
+        </div>
+
+        <div class="empty-state">
+          <div class="empty-route-icon">↗</div>
+          <strong>Your next journey starts here</strong>
+          <p>Choose two places above to see your route and distance.</p>
+        </div>
+      </section>
+
+      <!-- Estimated emissions -->
+      <section class="emissions panel">
+        <div class="panel-heading">
+          <div>
+            <div class="section-kicker">TRAVEL CONSCIOUSLY</div>
+            <h2>Estimated emissions</h2>
+          </div>
+
+          <span class="eco-badge">✳ Eco impact</span>
+        </div>
+
+        <p class="emissions-intro">
+          Compare estimated direct operational CO₂ using the same route distance.
+        </p>
+
+        <div id="emissionsGrid" class="emissions-grid">
+
+          <div class="emission-card">
+            <div class="emission-icon car-icon">↗</div>
+
+            <div class="emission-copy">
+              <span>Petrol car</span>
+              <strong>— kg</strong>
+              <small>0.120 kg/km</small>
+            </div>
+          </div>
+
+          <div class="emission-card">
+            <div class="emission-icon bike-icon">↗</div>
+
+            <div class="emission-copy">
+              <span>Motorcycle</span>
+              <strong>— kg</strong>
+              <small>0.070 kg/km</small>
+            </div>
+          </div>
+
+          <div class="emission-card">
+            <div class="emission-icon bus-icon">↗</div>
+
+            <div class="emission-copy">
+              <span>Public bus</span>
+              <strong>— kg</strong>
+              <small>0.080 kg/km</small>
+            </div>
+          </div>
+
+          <div class="emission-card emission-best">
+            <div class="emission-icon walk-icon">✳</div>
+
+            <div class="emission-copy">
+              <span>Walking / cycling</span>
+              <strong>0 kg</strong>
+              <small>Direct emissions assumed 0</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="emissions-note">
+          <span>ⓘ</span>
+
+          <p>
+            These are illustrative estimates, not live measurements.
+            Actual emissions vary by vehicle and occupancy.
+          </p>
+        </div>
+      </section>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <a class="footer-brand" href="/">
+        Eco<span>Route</span>
+      </a>
+
+      <span>Built with C, graph algorithms &amp; web technologies</span>
+
+      <span class="footer-right">
+        A student project for smarter mobility <span>✳</span>
+      </span>
+    </footer>
+
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>

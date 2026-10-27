@@ -1,0 +1,57 @@
+source,destination,distance_km
+MRIIRS Main Gate,MRIIRS Academic Block,0.4
+MRIIRS Main Gate,MRIIRS Library,0.6
+MRIIRS Main Gate,MRIIRS Canteen,0.5
+MRIIRS Main Gate,MRIIRS Hostel,0.8
+MRIIRS Academic Block,MRIIRS Auditorium,0.3
+MRIIRS Academic Block,MRIIRS Library,0.3
+MRIIRS Academic Block,MRIIRS Sports Complex,0.7
+MRIIRS Library,MRIIRS Canteen,0.4
+MRIIRS Canteen,MRIIRS Hostel,0.5
+MRIIRS Hostel,MRIIRS Sports Complex,0.6
+MRIIRS Sports Complex,MRIIRS Medical Centre,0.5
+MRIIRS Main Gate,Delhi-Surajkund Road Junction,0.7
+Delhi-Surajkund Road Junction,Surajkund Road Crossing,1.2
+Surajkund Road Crossing,Anangpur Village,1.8
+Surajkund Road Crossing,Charmwood Village,2.0
+Charmwood Village,Greenfield Colony,2.4
+Charmwood Village,Badarpur Border,4.5
+Anangpur Village,Surajkund,3.2
+Surajkund,Badarpur Border,5.2
+Greenfield Colony,NHPC Chowk Metro Station,2.3
+Greenfield Colony,Badkal Mor Metro Station,3.1
+NHPC Chowk Metro Station,NHPC Chowk,0.4
+NHPC Chowk,Sector 37 Market,2.2
+Sector 37 Market,Badkal Chowk,2.8
+Badkal Chowk,Badkal Mor Metro Station,1.0
+Badkal Chowk,NIT 5 Market,3.2
+NIT 5 Market,BK Chowk,2.1
+BK Chowk,NIT 1 Market,2.0
+NIT 1 Market,Old Faridabad Metro Station,4.2
+Old Faridabad Metro Station,Sector 15 Market,2.0
+Sector 15 Market,Sector 16 Market,1.4
+Sector 16 Market,Bata Chowk Metro Station,3.0
+Bata Chowk Metro Station,Escorts Mujesar Metro Station,3.4
+Badarpur Border,Tughlakabad Metro Station,2.8
+Tughlakabad Metro Station,Sarai Metro Station,2.1
+Sarai Metro Station,Badarpur Border,2.5
+Badkal Mor Metro Station,MRIIRS Main Gate,3.0
+MRIIRS Medical Centre,Delhi-Surajkund Road Junction,0.9
+MRIIRS Auditorium,MRIIRS Sports Complex,0.8
+MRIIRS Hostel,MRIIRS Medical Centre,0.7
+Sector 21C Market,Greenfield Colony,2.7
+Sector 21C Market,NHPC Chowk,3.4
+Sector 21C Market,Sector 37 Market,3.0
+Sector 16 Market,Old Faridabad Metro Station,2.6
+NIT 5 Market,Badkal Mor Metro Station,4.1
+Anangpur Village,Charmwood Village,2.6
+Surajkund,Charmwood Village,3.7
+Bata Chowk Metro Station,Old Faridabad Metro Station,3.8
+Escorts Mujesar Metro Station,Sector 15 Market,5.1
+MRIIRS Library,MRIIRS Medical Centre,0.6
+MRIIRS Academic Block,MRIIRS Hostel,0.9
+Greenfield Colony,Badarpur Border,4.0
+Sector 37 Market,NHPC Chowk Metro Station,2.4
+BK Chowk,Badkal Chowk,2.5
+NIT 1 Market,NIT 5 Market,2.8
+Sector 15 Market,BK Chowk,3.7

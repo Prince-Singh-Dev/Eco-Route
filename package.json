@@ -1,0 +1,7 @@
+{
+  "name": "ecoroute-web-gui",
+  "version": "1.0.0",
+  "private": true,
+  "description": "EcoRoute web GUI with C shortest-path backend",
+  "scripts": { "start": "node server.js" }
+}
